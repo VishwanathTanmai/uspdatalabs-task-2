@@ -1,0 +1,12 @@
+flask
+flask-sqlalchemy
+flask-login
+flask-socketio
+flask-cors
+opencv-python-headless
+numpy
+Pillow
+torch
+torchvision
+torchaudio
+eventlet

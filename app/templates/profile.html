@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container interactive">
+    <div class="profile-card">
+        <h2>User Profile</h2>
+        <div class="profile-details">
+            <p><strong>Name:</strong> {{ current_user.name }}</p>
+            <p><strong>Username:</strong> {{ current_user.username }}</p>
+        </div>
+        <div class="profile-actions">
+            <a href="{{ url_for('auth.logout') }}" class="btn btn-danger">Logout</a>
+            <a href="{{ url_for('main.dashboard') }}" class="btn">Back to Dashboard</a>
+        </div>
+
+        <div class="user-uploads">
+            <h3>Your Uploads</h3>
+            {% if current_user.uploads %}
+            <ul class="upload-list">
+                {% for upload in current_user.uploads %}
+                <li>
+                    <a href="{{ url_for('static', filename='uploads/' + upload.filename) }}" target="_blank">
+                        {{ upload.filename }} ({{ upload.upload_date.strftime('%Y-%m-%d') }})
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No uploads yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 15px;
+        max-width: 600px;
+        margin: 5rem auto;
+        color: white;
+    }
+
+    .profile-details p {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .profile-actions {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn-danger {
+        background: #ff4444;
+    }
+
+    .upload-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 1rem;
+    }
+
+    .upload-list li {
+        margin-bottom: 0.5rem;
+    }
+
+    .upload-list a {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}

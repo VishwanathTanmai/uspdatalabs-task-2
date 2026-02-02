@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container interactive">
+    <div class="sidebar">
+        <h3>User Profile</h3>
+        <p>Welcome, <span id="username">{{ current_user.name }}</span></p>
+        <a href="{{ url_for('main.profile') }}"
+            style="color: #4CAF50; text-decoration: none; display: block; margin-bottom: 10px;">View Profile</a>
+        <div class="stats">
+            <p>Uploads: <span id="upload-count">{{ current_user.uploads|length }}</span></p>
+        </div>
+
+        <div class="live-feed-section"
+            style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+            <h3>Live Feed</h3>
+            <div id="live-feed"
+                style="display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto;">
+                <!-- Real-time uploads will appear here -->
+            </div>
+        </div>
+    </div>
+    <div class="main-area">
+        <div class="upload-section">
+            <h2>Analyze Image</h2>
+            <input type="file" id="imageInput" accept="image/*">
+            <button id="uploadBtn" class="btn">Upload & Analyze</button>
+        </div>
+        <div class="results-section" id="resultsArea" style="display:none;">
+            <div class="image-view">
+                <h3>Processed Image</h3>
+                <img id="processedImage" src="" alt="Processed Result">
+            </div>
+            <div class="data-view">
+                <h3>Analysis Results</h3>
+                <div id="formatted-results"></div>
+                <pre id="jsonResults" style="display:none;"></pre>
+            </div>
+        </div>
+
+        <div class="related-section" id="extractedArea" style="display:none;">
+            <h3>Extracted Items (Crops)</h3>
+            <div class="gallery" id="extractedGallery"></div>
+        </div>
+
+        <div class="related-section" id="relatedArea" style="display:none;">
+            <h3>Related Images</h3>
+            <div class="gallery" id="relatedGallery"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
